@@ -1,26 +1,37 @@
 import turtle
-def draw_square(ws, length):
-    for _ in range(4):
-        ws.forward(length)
-        ws.right(90)
 
 def fibonacci(n):
     sequence = []
     a, b = 0, 1
     for _ in range(n):
+        a, b = b, a + b
         sequence.append(a)
-        a = b
-        b = a + b
-    sequence = sequence[1:]
     return sequence
 
-def draw_fibonacci_squares(n_squares):
+factor = int(input("Enter the factor: "))
+def draw_fibonacci_skeleton(n_squares):
     seq = fibonacci(n_squares)
     ws = turtle.Turtle()
-    for i in range(n_squares):
-        draw_square(ws, seq[i])
-        ws.forward(seq[i])
+
+    # first square needs 4 sides
+    ws.forward(seq[0] * factor)
+    ws.left(90)
+    ws.forward(seq[0] * factor)
+    ws.left(90)
+    ws.forward(seq[0] * factor)
+    ws.left(90)
+    ws.forward(seq[0] * factor)
+    
+    # for the remaining squares
+    for i in range(1, n_squares):
+        ws.backward(seq[i - 1] * factor)
+        ws.right(90)
+        ws.forward(seq[i] * factor)
         ws.left(90)
+        ws.forward(seq[i] * factor)
+        ws.left(90)
+        ws.forward(seq[i] * factor)
+    
     turtle.done()
 
-draw_fibonacci_squares(10)
+draw_fibonacci_skeleton(10)
